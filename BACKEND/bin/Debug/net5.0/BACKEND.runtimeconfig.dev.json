@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Sasa\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Sasa\\.nuget\\packages"
+    ]
+  }
+}
