@@ -69,12 +69,7 @@ export class Prodavnica{
     proizvodiForma(host){
         if(this.listaDobavljaca.length < 1){
             alert("Prodavnica nema dobavljace!");
-            let novContainer = document.createElement("div");
-            novContainer.className = "novaProdavnicaDiv";
-            host.appendChild(novContainer);    
-            this.novDobavljacForma(novContainer);
         }
-        else{
             let proizvodi = document.createElement("div");
             proizvodi.className = "proizvodi";
             host.appendChild(proizvodi);
@@ -118,7 +113,7 @@ export class Prodavnica{
                 this.novDobavljacForma(proizvodiForma);
                 this.prikaziDobavljace(proizvodiIzgled);
             })
-        }
+        
     }
 
     crtajSelect(host){
@@ -184,7 +179,7 @@ export class Prodavnica{
 
 
         let dodaj = document.createElement("button");
-        dodaj.className = "dugme";
+        dodaj.className = "dodajDobavljac";
         dodaj.innerHTML = "Dodaj proizvod";
         selectDiv.appendChild(dodaj);
         dodaj.addEventListener("click", () => {
@@ -224,7 +219,7 @@ export class Prodavnica{
 
         let nazivInput = document.createElement("input");
         nazivInput.type = "string";
-        nazivInput.className = "inputDobavljac";
+        nazivInput.className = "nazivProizvodInput";
         nazivDiv.appendChild(nazivInput);
 
         let adresaDiv = document.createElement("div");
@@ -238,7 +233,7 @@ export class Prodavnica{
 
         let adresaInput = document.createElement("input");
         adresaInput.type = "string";
-        adresaInput.className = "inputDobavljacAdresa";
+        adresaInput.className = "nazivProizvodInput";
         adresaDiv.appendChild(adresaInput);
         
 
@@ -251,13 +246,7 @@ export class Prodavnica{
         dodaj.innerHTML = "Dodaj dobavljaca";
         dugmeDiv.appendChild(dodaj);
         dodaj.addEventListener("click", () => {
-            this.dodajDobavljaca(nazivInput.value, adresaInput.value);
-            // brisiDobavljace();
-            // this.brisiSelect();
-            // this.crtajSelect(document.querySelector(".selectDiv"));    
-            brisiSadrzaj();
-            this.preuzmiDobavljace(document.querySelector(".dobavljaci"));
-
+            this.dodajDobavljaca(nazivInput.value, adresaInput.value);   
         })
     }
 
@@ -311,13 +300,6 @@ export class Prodavnica{
         })
     }
 
-    obrisiDobavljaca(host, index){
-        this.listaDobavljaca[index].obrisiDobavljaca();
-        this.listaDobavljaca.pop(index);
-
-        this.brisiDobavljace();
-        this.prikaziDobavljace(host);
-    }
 
     dodajDobavljaca(naziv, adresa){
         let sadrzaj = document.querySelector(".inputDobavljac").value = "";
@@ -331,6 +313,8 @@ export class Prodavnica{
         }).then(r => r.json()).then(dobavljac => {
             var d = new Dobavljac(dobavljac.dobavljacID, dobavljac.naziv, dobavljac.adresaFirme);
             this.listaDobavljaca.push(d);
+            this.brisiSadrzaj();
+            this.preuzmiDobavljace(document.querySelector(".dobavljaci"));
         })
     }
 
@@ -365,14 +349,22 @@ export class Prodavnica{
         var roditelj = dete.parentNode;
         roditelj.removeChild(roditelj.firstChild);
     }
-}
-export function brisiSadrzaj(){
-    var dete = document.querySelector(".proizvodi");
-    if(dete){
-        var roditelj = dete.parentNode;
-        roditelj.removeChild(dete);
+
+    brisiSadrzaj(){
+        var dete = document.querySelector(".proizvodi");
+        if(dete){
+            var roditelj = dete.parentNode;
+            roditelj.removeChild(dete);
+        }
     }
 }
+// export function brisiSadrzaj(){
+//     var dete = document.querySelector(".proizvodi");
+//     if(dete){
+//         var roditelj = dete.parentNode;
+//         roditelj.removeChild(dete);
+//     }
+// }
 
 export function brisiSadrzajProdavnica(){
     
